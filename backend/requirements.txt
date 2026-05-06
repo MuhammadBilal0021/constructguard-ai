@@ -1,0 +1,28 @@
+# ConstructGuard AI — Backend Dependencies
+
+# === Core API ===
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
+pydantic==2.11.3
+python-dotenv==1.1.0
+aiofiles==24.1.0
+
+# === Image Processing ===
+opencv-python==4.11.0.86
+Pillow==11.2.1
+
+# === PDF Generation ===
+reportlab==4.4.0
+
+# === AI/ML — Install on AMD Cloud with ROCm ===
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.7
+# transformers>=4.51.0
+# accelerate>=1.6.0
+
+# === Agent Framework (optional) ===
+# crewai>=0.108.0
+# langchain>=0.3.0
+
+# === Test Data (optional) ===
+# roboflow>=1.1.0

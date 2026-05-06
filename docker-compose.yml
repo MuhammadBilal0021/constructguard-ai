@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: constructguard_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - INFERENCE_MODE=production
+      - MODEL_NAME=Qwen/Qwen2.5-VL-7B-Instruct
+      - DEVICE=cuda
+      - TORCH_DTYPE=float16
+    volumes:
+      - backend_data:/app/backend/database
+      - backend_uploads:/app/backend/uploads
+      - backend_output:/app/backend/output
+    # ─── AMD ROCm GPU Passthrough ───
+    # These settings expose the MI300X to the container
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    security_opt:
+      - seccomp:unconfined
+    group_add:
+      - video
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: constructguard_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_data:
+  backend_uploads:
+  backend_output:
