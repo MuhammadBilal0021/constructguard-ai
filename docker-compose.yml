@@ -10,7 +10,7 @@ services:
       - "8000:8000"
     environment:
       - INFERENCE_MODE=production
-      - MODEL_NAME=Qwen/Qwen2.5-VL-7B-Instruct
+      - MODEL_NAME=Qwen/Qwen3.6-VL-27B-Instruct
       - DEVICE=cuda
       - TORCH_DTYPE=float16
     volumes:
