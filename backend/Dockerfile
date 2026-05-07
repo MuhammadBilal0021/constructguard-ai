@@ -1,5 +1,5 @@
-# Use Python 3.13 slim image
-FROM python:3.13-slim
+# Use ROCm base image instead — PyTorch already included
+FROM rocm/pytorch:rocm6.2.4_ubuntu22.04_py3.11_pytorch_release_2.3.0
 
 # Set working directory
 WORKDIR /app
@@ -21,10 +21,6 @@ COPY backend/requirements.txt /app/backend/requirements.txt
 
 # Install standard dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
-
-# Install AMD ROCm PyTorch (Note: The base image might need to be an ROCm base if issues arise, 
-# but installing the wheel often works on standard Linux if devices are passed through)
-RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/rocm5.7
 RUN pip install transformers accelerate Pillow
 
 # Copy the backend code
